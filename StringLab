@@ -1,1 +1,179 @@
+import java.util.Scanner;
 
+public class StringLab{
+
+    public static void main(String[] args) {
+
+        // --- Task 1: Working with String Methods ---
+        System.out.println("--- Task 1: Working with String Methods ---");
+
+        // Create a String variable with leading/trailing spaces
+        String originalString = " Welcome to the Java String Lab! ";
+        System.out.println("Original String: \"" + originalString + "\"");
+
+        // length(): Returns the number of characters in the string.
+        System.out.println("Length of the string: " + originalString.length());
+
+        // charAt(int index): Returns the character at the specified index.
+        // Index 7 corresponds to 't' (0-indexed, including spaces)
+        System.out.println("Character at index 7: '" + originalString.charAt(7) + "'");
+
+        // substring(int beginIndex, int endIndex): Returns a new string that is a substring of this string.
+        int javaStartIndex = originalString.indexOf("Java"); // Finds the index of the first occurrence of "Java"
+        int javaEndIndex = javaStartIndex + "Java".length(); // Calculates the end index for the substring
+        System.out.println("Extracted substring \"Java\": \"" + originalString.substring(javaStartIndex, javaEndIndex) + "\"");
+
+
+        // toUpperCase(): Converts all of the characters in this String to uppercase.
+        System.out.println("Uppercase: \"" + originalString.toUpperCase() + "\"");
+        // toLowerCase(): Converts all of the characters in this String to lowercase.
+        System.out.println("Lowercase: \"" + originalString.toLowerCase() + "\"");
+
+        // indexOf(String str): Returns the index within this string of the first occurrence of the specified substring.
+        System.out.println("Index of first occurrence of \"Java\": " + originalString.indexOf("Java"));
+
+        // contains(CharSequence s): Returns true if and only if this string contains the specified sequence of char values.
+        System.out.println("Does the string contain \"Lab\"? " + originalString.contains("Lab"));
+
+        // replace(CharSequence target, CharSequence replacement): Replaces each substring of this string that matches the literal target sequence with the specified literal replacement sequence.
+        String replacedString = originalString.replace("Java", "Java Programming");
+        System.out.println("String after replacement: \"" + replacedString + "\"");
+
+        // split(String regex): Splits this string around matches of the given regular expression.
+        System.out.println("Splitting the string by spaces:");
+        String[] words = originalString.split(" "); // Splits the string into an array of substrings based on the space delimiter
+        for (String word : words) {
+            if (!word.isEmpty()) { // Checks if the word is not empty (e.g., from multiple spaces)
+                System.out.println("  Word: \"" + word + "\"");
+            }
+        }
+
+        // trim(): Returns a string whose value is this string, with any leading and trailing whitespace removed.
+        String trimmedString = originalString.trim();
+        System.out.println("Trimmed string: \"" + trimmedString + "\"");
+
+        // equals(Object anObject): Compares this string to the specified object. Returns true if the arguments are equal. Case sensitive.
+        String compareString = "java string lab!";
+        System.out.println("Comparing \"" + trimmedString + "\" with \"" + compareString + "\":");
+        System.out.println("  Using equals(): " + trimmedString.equals(compareString)); // Case sensitive comparison
+        // equalsIgnoreCase(String anotherString): Compares this String to another String, ignoring case considerations.
+        System.out.println("  Using equalsIgnoreCase(): " + trimmedString.equalsIgnoreCase(compareString)); // Case insensitive comparison
+
+        // Example to demonstrate equalsIgnoreCase returning true
+        String compareStringCaseTest = " welcome to the java string lab! ";
+        System.out.println("Comparing \"" + originalString + "\" with \"" + compareStringCaseTest + "\":");
+        System.out.println("  Using equals(): " + originalString.equals(compareStringCaseTest)); // Case sensitive comparison
+        System.out.println("  Using equalsIgnoreCase(): " + originalString.equalsIgnoreCase(compareStringCaseTest)); // Case insensitive comparison
+
+
+        System.out.println("\n--- Task 2: Loop Challenges with Strings ---");
+
+        // --- Task 2: Loop Challenges with Strings ---
+        // 🌀 For Loop: Count Vowels
+        System.out.println("\n🌀 For Loop: Count Vowels");
+        int vowelCount = 0;
+        // Convert the original string to lowercase to simplify vowel checking (case-insensitive)
+        String lowerCaseOriginalString = originalString.toLowerCase();
+
+        // Iterate through each character of the string using a for loop
+        for (int i = 0; i < lowerCaseOriginalString.length(); i++) {
+            char ch = lowerCaseOriginalString.charAt(i); // Get the character at the current index
+            // Check if the character is one of the vowels
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                vowelCount++; // Increment vowel count if it's a vowel
+            }
+        }
+        System.out.println("Number of vowels in the original string: " + vowelCount);
+
+        // 🔁 While Loop: Check for Palindrome
+        System.out.println("\n🔁 While Loop: Check for Palindrome");
+        String wordForPalindrome = "racecar"; // Example word (reads the same forwards and backwards)
+        // String wordForPalindrome = "hello"; // Another example word (not a palindrome)
+        boolean isPalindrome = true; // Assume it's a palindrome initially
+        int left = 0; // Pointer for the beginning of the word
+        int right = wordForPalindrome.length() - 1; // Pointer for the end of the word
+
+        // Loop as long as the left pointer is less than the right pointer
+        while (left < right) {
+            // If characters at current left and right positions do not match, it's not a palindrome
+            if (wordForPalindrome.charAt(left) != wordForPalindrome.charAt(right)) {
+                isPalindrome = false; // Set palindrome flag to false
+                break; // Exit the loop as soon as a mismatch is found
+            }
+            left++; // Move left pointer to the right
+            right--; // Move right pointer to the left
+        }
+        System.out.println("The word \"" + wordForPalindrome + "\" is a palindrome: " + isPalindrome);
+
+        // 🔂 Do...While Loop: Input Validation
+        System.out.println("\n🔂 Do...While Loop: Input Validation");
+        Scanner scanner = new Scanner(System.in); // Create a Scanner object to read input from the console
+        String userInput;
+
+        do {
+            System.out.print("Please enter a sentence that contains the word \"Java\": ");
+            userInput = scanner.nextLine(); // Read the entire line of user input
+        } while (!userInput.toLowerCase().contains("java")); // Continue looping as long as the user input (converted to lowercase) does NOT contain "java"
+
+        System.out.println("Thank you!");
+        // It's good practice to close the scanner when done to release system resources.
+        // scanner.close();
+
+
+        // --- Task 3: Working with StringBuilder ---
+        System.out.println("\n--- Task 3: Working with StringBuilder ---");
+
+        // StringBuilder: A mutable sequence of characters. Not synchronized (faster for single-threaded environment).
+        StringBuilder sb = new StringBuilder("StringBuilder Lab");
+        System.out.println("Initial StringBuilder: \"" + sb + "\"");
+
+        // append(String str): Appends the specified string to this character sequence.
+        sb.append(" - Learning Java");
+        System.out.println("After append(): \"" + sb + "\"");
+
+        // insert(int offset, String str): Inserts the string into this character sequence.
+        int labEndIndexSB = sb.indexOf("Lab") + "Lab".length(); // Calculate the insertion point after "Lab"
+        sb.insert(labEndIndexSB, " is fun");
+        System.out.println("After insert(): \"" + sb + "\"");
+
+        // delete(int start, int end): Removes the characters in a substring of this sequence.
+        int learningStartIndexSB = sb.indexOf("Learning"); // Find the start index of "Learning"
+        int learningEndIndexSB = learningStartIndexSB + "Learning".length(); // Calculate the end index of "Learning"
+        sb.delete(learningStartIndexSB, learningEndIndexSB);
+        System.out.println("After delete(): \"" + sb + "\"");
+
+        // reverse(): Reverses the sequence of characters.
+        sb.reverse();
+        System.out.println("After reverse(): \"" + sb + "\"");
+
+
+        // --- Task 4: Working with StringBuffer ---
+        System.out.println("\n--- Task 4: Working with StringBuffer ---");
+
+        // StringBuffer: A mutable sequence of characters. Synchronized (thread-safe, suitable for multi-threaded environment).
+        StringBuffer sbuf = new StringBuffer("Multithreading Lab");
+        System.out.println("Initial StringBuffer: \"" + sbuf + "\"");
+
+        // append(String str): Appends the specified string to this character sequence.
+        sbuf.append(" - A Powerful Concept");
+        System.out.println("After append(): \"" + sbuf + "\"");
+
+        // insert(int offset, String str): Inserts the string into this character sequence.
+        int labEndIndexSBUF = sbuf.indexOf("Lab") + "Lab".length(); // Calculate the insertion point after "Lab"
+        sbuf.insert(labEndIndexSBUF, " is complex");
+        System.out.println("After insert(): \"" + sbuf + "\"");
+
+        // delete(int start, int end): Removes the characters in a substring of this sequence.
+        int powerfulStartIndexSBUF = sbuf.indexOf("Powerful"); // Find the start index of "Powerful"
+        int powerfulEndIndexSBUF = powerfulStartIndexSBUF + "Powerful".length(); // Calculate the end index of "Powerful"
+        sbuf.delete(powerfulStartIndexSBUF, powerfulEndIndexSBUF);
+        System.out.println("After delete(): \"" + sbuf + "\"");
+
+        // reverse(): Reverses the sequence of characters.
+        sbuf.reverse();
+        System.out.println("After reverse(): \"" + sbuf + "\"");
+
+        // Close the scanner resource to prevent resource leaks
+        scanner.close();
+    }
+}
